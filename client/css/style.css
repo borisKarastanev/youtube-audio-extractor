@@ -1,0 +1,98 @@
+/*
+    name: YouTube Audio Extractor GUI
+    version: 1.1.3
+    license: MIT, GNU
+    Author: Boris Karastanev
+    Author's web page: http://bsksolutions.net
+    Author's contact details: b.karastanev@gmail.com
+*/
+
+body, html{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#logo:hover {
+    cursor: pointer;
+}
+
+#logo-brand {
+    margin-top: 50px;
+    font-size: 28px;
+    text-shadow: 1px 1px #222;
+}
+
+#logo-brand:hover {
+    cursor: pointer;
+}
+
+#url-box {
+    margin: 20px 0 60px 0;
+}
+
+#table-header-row {
+    height: 40px;
+    font-size: 18px;
+}
+
+#table-header-row th:first-child {
+    padding-left: 20px;
+}
+
+/*Server template classes*/
+
+.file-name {
+    padding-left: 20px;
+}
+
+.del-file {
+    width: 100%;
+}
+
+/*Loading animation*/
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 760px){
+    #logo-brand {
+        margin-top: 30px;
+        font-size: 18px;
+        text-shadow: none;
+        font-weight: bold;
+    }
+}
+
+@media only screen and (max-width : 760px) and (orientation: landscape){
+    #logo {
+        width: 200px;
+    }
+    #logo-brand {
+        margin-top: 45px;
+        font-size: 18px;
+        text-shadow: none;
+        font-weight: bold;
+    }
+}
+
+
+
+
+
+

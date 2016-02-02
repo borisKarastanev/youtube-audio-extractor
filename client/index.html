@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YouTube Audio Extractor</title>
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link type="text/css" href="libs/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<section id="container" class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-6 col-xs-12">
+            <img id="logo" class="img-responsive col-xs-8 col-md-4 col-lg-4" src="img/main-logo.png">
+            <h3 id="logo-brand" class="col-xs-4 col-md-4 col-lg-4">Audio Extractor</h3>
+        </div>
+
+    </div>
+    <section id="url-box" class="input-group input-group-md col-xs-12 col-md-8  col-lg-6 ">
+        <input type="text" class="form-control" name="tube-url" id="tube-url" placeholder="Enter youtube link here"/>
+        <span class="input-group-btn"><button id="submit-link" class="btn btn-primary"><span id="loading"></span>Extract</button></span>
+    </section>
+    <section id="file-table" class="table-responsive">
+        <table class="table-striped table-hover table-bordered col-lg-12 col-md-12 col-xs-12">
+            <thead>
+                <tr id="table-header-row">
+                    <th>Name</th>
+                    <th class="text-center">Action</th>
+                    <th class="text-center">Size</th>
+                </tr>
+            </thead>
+            <tbody id="files"></tbody> <!--Files are being added by the server template-->
+        </table>
+    </section>
+    <section id="result-details"></section>
+</section>
+<script type="text/javascript" src="libs/jquery.min.js"></script>
+<script type="text/javascript" src="libs/bootstrap.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
