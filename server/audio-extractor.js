@@ -7,10 +7,10 @@ var path = require("path");
 var url = require("url");
 var exec = require('child_process').exec;
 var ytdl = require('youtube-dl');
+var config = require('../config.json');
 
 /*Global vars*/
-var outputPath = __dirname.replace('server', 'audio');
-var testUrl = 'https://www.youtube.com/watch?v=FWOsbGP5Ox4';
+var outputPath = config.download_dir;
 var audioExtractor = {};
 
 console.log(outputPath);
@@ -43,29 +43,8 @@ audioExtractor.fileList = function (filePath, cb) {
     } else if (!filePath) {
         cb(null, 'Folder Empty');
     }
-    var _self = this;
-    var folderDetails = {};
     var dataArr = [];
 
-    /*fs.readdir(filePath, function (err, files) {
-     var dataArr = [];
-
-
-     if (err) {
-     cb(new Error('Error reading files in directory', err));
-     return;
-     }
-     for (var i = 0; i < files.length; i++){
-     var fileStat = fs.statSync(path.join(filePath, files[i]));
-     fileStat = fileStat.size;
-     fileStat = (fileStat / 1048576).toFixed(1);
-     dataArr.push('<a href="/' + files[i] + '" download>' +
-     files[i] + '</a><span type="button" class="del-file">delete</span>' +
-     '<span class="file-size">' + fileStat + ' MB</span></br>');
-     }
-     //console.log('Data array', dataArr);
-     cb(null, dataArr);
-     });*/
     try {
         var audioFiles = fs.readdirSync(filePath);
         for (var i = 0; i < audioFiles.length; i++) {
@@ -88,7 +67,7 @@ audioExtractor.downloadFiles = function (req, cb) {
     var urlPath = url.parse(req.url);
     urlPath.pathname = urlPath.pathname.replace(/%20/g, ' ');
     console.log('Url pathname replaced???', urlPath.pathname);
-    var dir = __dirname.replace('server', 'audio');
+    var dir = outputPath;
     fs.stat(path.join(dir, urlPath.pathname), function (err, stat) {
         if (err) {
             new Error('File does not exist');
@@ -124,7 +103,7 @@ audioExtractor.deleteFile = function (filePath, cb) {
     if (typeof filePath !== 'string') {
         throw new Error('Path must be of type string');
     }
-    var dir = __dirname.replace('server', 'audio');
+    var dir = outputPath;
     console.log('check path for delete', filePath);
 
     fs.unlink(path.join(dir, filePath), function (err) {
@@ -139,8 +118,6 @@ audioExtractor.deleteFile = function (filePath, cb) {
 audioExtractor._getFolderSize = function (cb) {
     var command = 'du -sh ' + outputPath;
     var maxFolderSize = 250; //mb
-    var _self = this;
-    var folderInfo = {};
 
     exec(command, function (err, stdout, stderr) {
         if (err) {
@@ -159,13 +136,6 @@ audioExtractor._getFolderSize = function (cb) {
             cb(null, 'No free space for download');
             return;
         }
-        /*else {
-         var freeSpace = maxFolderSize - result + ' MB';
-         folderInfo.used_space = result;
-         folderInfo.free_space = freeSpace;
-         folderInfo = JSON.stringify(folderInfo);
-         cb(null, folderInfo);
-         }*/
     });
 };
 
@@ -175,8 +145,9 @@ audioExtractor.logFile = function (req, data) {
     var ip = req.connection.remoteAddress;
     var userData = data;
     var fileData = '[Date] ' + date + ' [ip_address] ' + ip + ' [user_data] ' + userData + ' \n';
+    var _filePath = config.log_path;
 
-    fs.appendFile(path.join(__dirname.replace('server', ''), 'userLog.log'), fileData, function (err) {
+    fs.appendFile(_filePath, fileData, function (err) {
         if (err) {
             new Error('Error writting into log file ')
         } else {

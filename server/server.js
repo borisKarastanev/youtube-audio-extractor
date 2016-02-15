@@ -2,8 +2,8 @@
 var http = require("http");
 
 /*Libs*/
-var audioExt = require('./audio-extractor');
 var reqHandler = require('./rest-api');
+var config = require('../config.json');
 
 function httpReqHandler (req, res) {
     if(req.method === 'GET') {
@@ -24,8 +24,8 @@ var httpServer = http.createServer();
 
 httpServer.on('request', httpReqHandler);
 
-var port = 8080;
-var host = '0.0.0.0';
+var port = config.app_port;
+var host = config.app_host;
 
 httpServer.listen(port, host);
 

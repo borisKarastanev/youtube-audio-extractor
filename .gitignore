@@ -10,5 +10,8 @@
 # ignore node_modules folder
 node_modules/
 
+# ignore node_modules folder
+audio/
+
 # ignore .idea folder
 .idea/
